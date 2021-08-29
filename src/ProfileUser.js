@@ -7,13 +7,13 @@ export default function ProfileUser(){
 
   const [user,setUser] = useState({})
   useEffect(()=>{
-  loadData();
+    loadData();
   },[])
 
   var history = useHistory();
   const logoutBtn = () =>{
-  localStorage.removeItem("accessToken")
-  history.replace("/");
+    localStorage.removeItem("accessToken")
+    history.replace("/");
   }
 
   const loadData = async() => {
