@@ -28,29 +28,31 @@ export default function Login() {
   }
   return (
   <div>
-  <div className="form-container">
-  <form onSubmit={handleSubmit(onSubmit)}>
-  <h1 className="loginpage">LOGIN</h1>
-      <h4>Phone number:</h4>
-      <input defaultValue="" {...register("email",{ required: true })} />
-      {errors.email && <span>This field is required</span>}
-      <h4>password:</h4>
-      <input type="password" {...register("password", { required: true })} />
-      {errors.password && <span>This field is required</span>}
-      
-      <input type="submit" />
-  </form>
+    <div className="form-container">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="loginpage">LOGIN</h1>
+        <h4>Phone number:</h4>
+        <input defaultValue="" {...register("email",{ required: true })} />
+        {errors.email && <span>This field is required</span>}
+        <h4>password:</h4>
+        <input type="password" {...register("password", { required: true })} />
+        {errors.password && <span>This field is required</span>}
+        
+        <input type="submit" />
+      </form>
   </div>
+
   <div>
   <h3>or login with</h3>
-  <GoogleLogin
-  clientId="848301233335-bkj0k1tjpovhblr6k35o1vif3epi0f7b.apps.googleusercontent.com"
-  buttonText="Login with Google"
-  onSuccess={responseGoogle}
-  onFailure={responseGoogle}
-  cookiePolicy={'single_host_origin'}
-  />
+    <GoogleLogin
+    clientId="848301233335-bkj0k1tjpovhblr6k35o1vif3epi0f7b.apps.googleusercontent.com"
+    buttonText="Login with Google"
+    onSuccess={responseGoogle}
+    onFailure={responseGoogle}
+    cookiePolicy={'single_host_origin'}
+    />
   </div>
+  
   {profile? (
       <h1>{profile.name} --- <h2>{profile.email}</h2></h1>
       
