@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from "axios";
+
 
 export default function ProfileUser(){
+
     const [user,setUser] = useState({})
     useEffect(()=>{
 		loadData();
-	},[localStorage.getItem("accessToken")])
+	},[])
 
     var history = useHistory();
     const logoutBtn = () =>{
@@ -13,28 +16,27 @@ export default function ProfileUser(){
 		history.replace("/");
 	}
 
-	const loadData = () => {
-		var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("accessToken"));
-
-        var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-        };
-
-        fetch("https://api-qlk.aecomapp.com/api/auth/me", requestOptions)
-        .then(response => response.json())
-        .then(result => setUser(result))
-        .catch(error => console.log('error', error));
+	const loadData = async() => {
+        let access_token = localStorage.getItem("accessToken");
+        await axios.get('https://api-qlk.aecomapp.com/api/auth/me', {
+        headers: {
+            'Authorization': `Bearer ${access_token}`
+        }
+        })
+        .then((res) => {
+        setUser(res.data.result)
+        })
+        .catch((error) => {
+        console.error(error)
+        })
+	
 	}
     return (
-     
 			<div>
-			<h1>LOGIN {user.message}</h1>
-            <h2>{user.result?.fullname}</h2>
-            <h3>{user.result?.email}</h3>
-            <h4>{user.result?.phone}</h4>
+			<h1>LOGIN Success</h1>
+            <h2>{user.fullname}</h2>
+            <h3>{user.email}</h3>
+            <h4>{user.phone}</h4>
 			<button type='submittbutton' className='btn btn-warning submittbutton' onClick={logoutBtn}>
 			LOGOUT
 			</button>
