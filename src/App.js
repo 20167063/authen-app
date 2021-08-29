@@ -7,18 +7,19 @@ import { BrowserRouter as Router,Switch,Route,Redirect } from 'react-router-dom'
 
 export default function App(){
 	return (
-		<Router>
-		<Switch>
-			<Route path="/profile" render={()=>{
-				return localStorage.getItem("accessToken") ? <ProfileUser /> : <Redirect to="/"/>
-			}}>
-			</Route>
-			<Route path="/">
-				<Login />
-			</Route>
-		</Switch>
-		</Router>
-		
+    <div className="container bg-white p-4 mt-5">
+      <Router>
+      <Switch>
+        <Route path="/profile" render={()=>{
+          return localStorage.getItem("accessToken") ? <ProfileUser /> : <Redirect to="/"/>
+        }}>
+        </Route>
+        <Route path="/">
+          <Login />
+        </Route>
+      </Switch>
+      </Router>
+		</div>
 	)
 }
 
